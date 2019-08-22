@@ -17,8 +17,9 @@ function createReceipt(itemsId) {
     const staticsItems = countItems(itemsId);
     const productInfo = getInfoByItemsId(staticsItems);
     const totalPrice = countTotalPrice(productInfo);
+    const print = printReceipt(productInfo);
 
-    return totalPrice;
+    return print;
 }
 
 //统计items的数量
@@ -65,6 +66,19 @@ function countTotalPrice(productInfo) {
         totalPrice += price * count;
     }
     return totalPrice;
+}
+
+function printReceipt(productInfo){
+    let result = "Receipts\n----------\n";
+    for(let i = 0; i< productInfo.length;i++){
+        let name = productInfo[i].name;
+        let price = productInfo[i].price;
+        let count = productInfo[i].count;
+        result += name + "\t" + price + "\t" + count + "\n";
+    }
+    let totalPrice = countTotalPrice(productInfo);
+    result += "----------\n"+"Price:" + totalPrice;
+    return result;
 }
 
 console.log(createReceipt(itemsId));
